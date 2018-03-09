@@ -1,0 +1,9 @@
+<!--pages/api/api.wxml-->
+<view >
+    <button bindtap='button'>APi</button>
+</view>
+<view class="section" wx:if="{{images.length > 0 }}" >
+    <view wx:for="{{images}}" wx:key="{{index}}">
+        <image src="{{item}}" mode="aspectFill" bindtap="preview" data-src="{{ item }}"></image>
+    </view>
+</view>

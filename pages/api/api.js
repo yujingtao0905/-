@@ -1,34 +1,37 @@
-import testDrive from "../../modules/test-drive";
-const app = getApp();
-
+// pages/api/api.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-      slides:null,
-      entities :null,
+    images:[]
   },
-  testDrive,
-  readMore(event){
-    wx.navigateTo({
-      url:`/pages/vehicles/show?id=${event.target.dataset.id}`
+  button(){
+    wx.chooseImage({
+      count: 9,
+      sizeType:['original','compressed'],
+      sourceType:['album','camera'],
+      success: (response) => {
+        console.log(response)
+        this.setData({
+          images: response.tempFilePaths
+
+        })
+      },
     })
   },
-  testDrive(event){
-      wx.showToast({
-        title:'暂不支持'
+  preview(event) {
+      wx.previewImage({
+          current:event.target.dataset.src,
+          urls: this.data.images
       })
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function () {
-      this.setData({
-        slides:app.globalData.slides,
-        entities:app.globalData.vehicles
-      })
+  onLoad: function (options) {
+
   },
 
   /**
